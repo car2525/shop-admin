@@ -1,0 +1,17 @@
+* {
+    margin: 0;
+  }
+  
+  .container-main {
+    display: flex;
+    height: calc(100vh);
+  }
+  
+  .container-main .main-body {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .cursor-pointer {
+    cursor: pointer;
+  }
