@@ -1,8 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { InlineResponse200 } from '../models/inlineResponse200';
-import { InlineResponse2001, Product, StatsCategories, Store } from '../models/models';
+import { ProductItem, ProductResponse, StatsCategories, Store, StoreResponse } from '../models/models';
 
 
 @Injectable({
@@ -18,8 +17,8 @@ export class ApiService {
   /**
    * Returns all the stores
    */
-  public getStores(): Observable<Array<InlineResponse200>> {
-    return this.httpClient.get<Array<InlineResponse200>>(`${this.basePath}/stores`);
+  public getStores(): Observable<Array<StoreResponse>> {
+    return this.httpClient.get<Array<StoreResponse>>(`${this.basePath}/stores`);
   }
 
   /**
@@ -27,7 +26,7 @@ export class ApiService {
    * @param idStore your store ID
    */
   public getStoresIdStore(idStore: string): Observable<Store> {
-    return this.httpClient.get<Store>(`${this.basePath}/stores/${encodeURIComponent(String(idStore))}` );
+    return this.httpClient.get<Store>(`${this.basePath}/stores/${encodeURIComponent(String(idStore))}`);
   }
 
   /**
@@ -36,7 +35,7 @@ export class ApiService {
    * @param page select the products that are in that page based on elements query parameter, start from 1
    * @param elements number of products you want per page
    */
-  public getProductsIdStore(idStore: string, page?: number, elements?: number): Observable<Array<InlineResponse2001>>{
+  public getProductsIdStore(idStore: string, page?: number, elements?: number): Observable<Array<ProductResponse>> {
 
     let queryParameters = new HttpParams();
     if (page !== undefined && page !== null) {
@@ -46,7 +45,7 @@ export class ApiService {
       queryParameters = queryParameters.set('elements', <any>elements);
     }
 
-    return this.httpClient.get<Array<InlineResponse2001>>(`${this.basePath}/stores/${encodeURIComponent(String(idStore))}/products`,
+    return this.httpClient.get<Array<ProductResponse>>(`${this.basePath}/stores/${encodeURIComponent(String(idStore))}/products`,
       {
         params: queryParameters
       }
@@ -67,8 +66,8 @@ export class ApiService {
    * @param idStore your store ID
    * @param idProduct your product ID
    */
-  public getProduct(idStore: string, idProduct: string): Observable<Product> {
-    return this.httpClient.get<Product>(`${this.basePath}/stores/${encodeURIComponent(String(idStore))}/products/${encodeURIComponent(String(idProduct))}`);
+  public getProduct(idStore: string, idProduct: string): Observable<ProductItem> {
+    return this.httpClient.get<ProductItem>(`${this.basePath}/stores/${encodeURIComponent(String(idStore))}/products/${encodeURIComponent(String(idProduct))}`);
   }
 
   /**
@@ -76,14 +75,14 @@ export class ApiService {
    * @param idStore your store ID
    * @param newProduct the data you need for the new product you want to add
    */
-  public postProducts(idStore: string, newProduct: Product): Observable<any>{
+  public postProducts(idStore: string, newProduct: ProductItem): Observable<any> {
     const headers = new HttpHeaders();
     const requestOptions: Object = {
       headers: headers,
       responseType: 'text'
     };
     return this.httpClient.post<any>(`${this.basePath}/stores/${encodeURIComponent(String(idStore))}/products`,
-      newProduct,  requestOptions);
+      newProduct, requestOptions);
   }
 
   /**

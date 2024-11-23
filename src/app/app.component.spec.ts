@@ -1,12 +1,30 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { provideMockStore } from '@ngrx/store/testing';
 import { AppComponent } from './app.component';
+import { CoreModule } from './core/core.module';
+import { STORE_ID } from './core/constants/constants';
+import { AppFacade } from './core/services/app.facade';
 
 describe('AppComponent', () => {
-  beforeEach(() => TestBed.configureTestingModule({
-    imports: [RouterTestingModule],
-    declarations: [AppComponent]
-  }));
+  let appFacade: AppFacade;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [AppComponent],
+      imports: [CoreModule, RouterTestingModule],
+      providers: [
+        AppFacade,
+        provideMockStore({
+          initialState: { 
+            idStore: ''
+          },
+        }),
+      ],
+    }).compileComponents();
+
+    appFacade = TestBed.inject(AppFacade);
+  });
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
@@ -14,16 +32,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'shop-admin'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('shop-admin');
+  it('should call persistIdStore with the correct STORE_ID', () => {
+    const spy = spyOn(appFacade, 'persistIdStore'); // Spia sul metodo del facade
+    TestBed.createComponent(AppComponent);
+    expect(spy).toHaveBeenCalledOnceWith(STORE_ID); // Verifica che il valore sia passato
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('shop-admin app is running!');
-  });
 });

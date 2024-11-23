@@ -6,8 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "generate-swagger-api": "swagger-typescript-api -p https://us-central1-test-b7665.cloudfunctions.net/api/docs/#/ -o src/app/core/api"
+    "test": "ng test --watch"
   },
   "private": true,
   "dependencies": {

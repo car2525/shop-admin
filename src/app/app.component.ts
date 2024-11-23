@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AppFacade } from './core/services/app.facade';
+import { STORE_ID } from './core/constants/constants';
 
 @Component({
   selector: 'sa-root',
@@ -6,5 +8,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'shop-admin';
+  
+  constructor(private readonly appFacade: AppFacade) {
+    this.appFacade.persistIdStore(STORE_ID);
+  }
 }

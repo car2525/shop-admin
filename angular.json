@@ -99,7 +99,11 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [], 
+            "include": [
+              "**/*.spec.ts"
+            ],
+            "karmaConfig": "karma.conf.js"
           }
         }
       }

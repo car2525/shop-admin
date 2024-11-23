@@ -1,8 +1,13 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { SharedModule } from "../../shared/shared.module";
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
+import { DashboardEffects } from './redux/dashboard.effects';
+import { dashboardReducer } from './redux/dashboard.reducers';
 
 
 @NgModule({
@@ -11,7 +16,10 @@ import { DashboardComponent } from './dashboard.component';
   ],
   imports: [
     CommonModule,
-    DashboardRoutingModule
-  ]
+    DashboardRoutingModule,
+    SharedModule,
+    StoreModule.forFeature('dashboardState', dashboardReducer),
+    EffectsModule.forFeature([DashboardEffects]),
+]
 })
 export class DashboardModule { }
