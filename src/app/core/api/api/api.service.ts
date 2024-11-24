@@ -14,6 +14,10 @@ export class ApiService {
   constructor(private readonly httpClient: HttpClient) {
   }
 
+  getBasePath() {
+    return this.basePath;
+  }
+
   /**
    * Returns all the stores
    */

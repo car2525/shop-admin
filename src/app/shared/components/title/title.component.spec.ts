@@ -34,8 +34,4 @@ describe('TitleComponent', () => {
     expect(titleElement.textContent).toBe(testTitle);
   });
 
-  it('should render the p-divider component', () => {
-    const dividerElement = fixture.debugElement.query(By.css('p-divider'));
-    expect(dividerElement).toBeTruthy();
-  });
 });

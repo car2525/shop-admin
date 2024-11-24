@@ -5,8 +5,8 @@ import { of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, take, withLatestFrom } from 'rxjs/operators';
 import { ApiService } from 'src/app/core/api/api/api.service';
 import { Store as StoreModel } from 'src/app/core/api/models/store';
-import { handleError } from 'src/app/core/redux/app.actions';
-import { selectIdStore } from 'src/app/core/redux/app.selectors';
+import { handleError } from 'src/app/core/redux/global.actions';
+import { selectIdStore } from 'src/app/core/redux/global.selectors';
 import {
   deleteProduct,
   deleteProductSuccess,
@@ -21,6 +21,7 @@ import {
 } from './dashboard.actions';
 import { Product } from 'src/app/core/models/products';
 import { ProductResponse } from 'src/app/core/api/models/productResponse';
+import { ProductItem } from 'src/app/core/api/models/productItem';
 
 @Injectable()
 export class DashboardEffects {
@@ -60,7 +61,7 @@ export class DashboardEffects {
               .map((item) => {
                 return {
                   id: item.id,
-                  ...item.data
+                  ...this.normalizeProductData(item.data)
                 } as Product
               });
             return persistProductsAfterGet({ products });
@@ -142,4 +143,12 @@ export class DashboardEffects {
       )
     )
   );
+
+  private normalizeProductData(productItem?: ProductItem): ProductItem | undefined {
+    if (!productItem) return productItem;
+    return {
+      ...productItem,
+      reviews: productItem?.reviews?.filter((r: string) => r && r.trim() !== '' )
+    }
+  }
 }

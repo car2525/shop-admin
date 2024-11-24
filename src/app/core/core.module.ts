@@ -9,8 +9,8 @@ import { MenubarModule } from 'primeng/menubar';
 import { ToastModule } from 'primeng/toast';
 import { HeaderComponent } from './components/header/header.component';
 import { HttpInterceptorService } from './interceptors/http.interceptor';
-import { AppEffects } from './redux/app.effects';
-import { appReducer } from './redux/app.reducers';
+import { GlobalEffects } from './redux/global.effects';
+import { globalReducer } from './redux/global.reducers';
 
 
 @NgModule({
@@ -22,8 +22,8 @@ import { appReducer } from './redux/app.reducers';
     HttpClientModule,
     MenubarModule,
     ToastModule,
-    StoreModule.forRoot({ appState: appReducer }),
-    EffectsModule.forRoot([AppEffects]),
+    StoreModule.forRoot({ globalState: globalReducer }),
+    EffectsModule.forRoot([GlobalEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25 })
   ],
   providers: [

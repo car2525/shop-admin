@@ -1,1 +1,10 @@
-<sa-title [titleText]="(storeName$ | async) ?? ''"></sa-title>
+<div class="card">
+    <sa-product-view-container 
+    [products]="(products$ | async) ?? []" 
+    [layout]="'list'"
+    [rows]="4"
+    >
+    <sa-title title [titleText]="(storeName$ | async) ?? ''"></sa-title>
+    </sa-product-view-container>
+</div>
+

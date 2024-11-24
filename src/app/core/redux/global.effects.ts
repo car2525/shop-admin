@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { MessageService } from 'primeng/api';
-import { handleError, operationSuccess } from './app.actions';
+import { handleError, operationSuccess } from './global.actions';
 import { tap } from 'rxjs';
 
 @Injectable()
-export class AppEffects {
+export class GlobalEffects {
   constructor(
     private readonly actions$: Actions,
     private readonly messageService: MessageService

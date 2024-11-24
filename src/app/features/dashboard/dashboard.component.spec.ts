@@ -1,9 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { CoreModule } from 'src/app/core/core.module';
-import { DashboardComponent } from './dashboard.component';
-import { DashboardFacade } from './services/dashboard.facade';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { DashboardComponent } from './dashboard.component';
+import { DashboardModule } from './dashboard.module';
+import { DashboardFacade } from './services/dashboard.facade';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -12,7 +13,7 @@ describe('DashboardComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [DashboardComponent],
-      imports: [CoreModule, SharedModule],
+      imports: [CoreModule, SharedModule, DashboardModule],
       providers: [
         DashboardFacade,
         provideMockStore({

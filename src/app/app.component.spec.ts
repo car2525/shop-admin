@@ -4,17 +4,17 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { STORE_ID } from './core/constants/constants';
-import { AppFacade } from './core/services/app.facade';
+import { GlobalFacade } from './core/services/global.facade';
 
 describe('AppComponent', () => {
-  let appFacade: AppFacade;
+  let appFacade: GlobalFacade;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AppComponent],
       imports: [CoreModule, RouterTestingModule],
       providers: [
-        AppFacade,
+        GlobalFacade,
         provideMockStore({
           initialState: { 
             idStore: ''
@@ -23,7 +23,7 @@ describe('AppComponent', () => {
       ],
     }).compileComponents();
 
-    appFacade = TestBed.inject(AppFacade);
+    appFacade = TestBed.inject(GlobalFacade);
   });
 
   it('should create the app', () => {

@@ -3,18 +3,18 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { MessageService } from 'primeng/api';
 import { Observable, of } from 'rxjs';
-import { handleError, operationSuccess } from '../app.actions';
-import { AppEffects } from '../app.effects';
+import { handleError, operationSuccess } from '../global.actions';
+import { GlobalEffects } from '../global.effects';
 
-describe('AppEffects', () => {
+describe('GlobalEffects', () => {
   let actions$: Observable<any>;
-  let effects: AppEffects;
+  let effects: GlobalEffects;
   let messageService: MessageService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        AppEffects,
+        GlobalEffects,
         provideMockActions(() => actions$),
         {
           provide: MessageService, 
@@ -24,7 +24,7 @@ describe('AppEffects', () => {
       ]
     });
 
-    effects = TestBed.inject(AppEffects);
+    effects = TestBed.inject(GlobalEffects);
     messageService = TestBed.inject(MessageService);
   });
 

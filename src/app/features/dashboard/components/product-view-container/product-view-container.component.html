@@ -1,0 +1,33 @@
+<div class="card" *ngIf="products">
+    <p-dataView #dv [value]="products" [layout]="layout" [rows]="rows" [paginator]="!!rows" (onPage)="onPageChange(dv)">
+        <ng-template pTemplate="header">
+            <div class="header-container">
+                <ng-content select="[title]"></ng-content>
+                <p-dataViewLayoutOptions pTooltip="Change view" tooltipPosition="top"></p-dataViewLayoutOptions>
+            </div>
+            <div class="actions">
+                <button (click)="onAdd()" class="p-button" pTooltip="Add new Product" tooltipPosition="top">
+                    <i class="pi pi-plus-circle icon-action"></i> Add new Product
+                </button>
+            </div>
+        </ng-template>
+
+        <ng-template let-product pTemplate="listItem">
+            <div class="col-12">
+                <sa-product-item [product]="product" [layout]="'list'"></sa-product-item>
+            </div>
+        </ng-template>
+
+        <ng-template let-product pTemplate="gridItem">
+            <div class="col-12 sm:col-6 lg:col-12 xl:col-4 p-2">
+                <sa-product-item [product]="product" [layout]="'grid'"></sa-product-item>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="empty">
+            <div class="p-4 text-center">
+                <p class="text-lg">No products available</p>
+            </div>
+        </ng-template>
+    </p-dataView>
+</div>

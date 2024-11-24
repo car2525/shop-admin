@@ -27,7 +27,7 @@ export class DashboardFacade {
         this.store.dispatch(persistStoreAfterGet({ store }));
     }
 
-    getProducts(idStore: string, page?: number, elements?: number): void {
+    getProducts(page?: number, elements?: number): void {
         this.store.dispatch(getProducts({ page, elements }));
     }
 

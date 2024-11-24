@@ -1,8 +1,11 @@
-
-<sa-header/>
+<sa-header />
 <section class="container-main">
+  <div *ngIf="isLoading$ | async" class="overlay">
+    <p-progressSpinner [style]="spinnerStyle" [strokeWidth]="'8'"></p-progressSpinner>
+  </div>
   <div class="main-body">
     <router-outlet></router-outlet>
   </div>
-  <p-toast></p-toast>
 </section>
+<p-toast [position]="'bottom-center'" [life]="5000">
+</p-toast>

@@ -1,0 +1,21 @@
+.category {
+    color: var(--primary-400);
+}
+
+.description-box {
+    min-height: 70px; 
+    max-height: 70px; 
+    overflow-y: auto;  
+    word-wrap: break-word; 
+}
+
+.title-container-grid {
+    min-height: 70px; 
+    max-height: 70px; 
+    overflow-y: auto;  
+    word-wrap: break-word; 
+}
+
+.reviews-container {
+    margin: 5px;
+}

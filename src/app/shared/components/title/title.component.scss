@@ -1,13 +1,10 @@
 .page-title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: var(--primary-color);
-    letter-spacing: 2px;
-  }
-  
-  ::ng-deep .p-divider {
-    margin: 20px auto;
-    border-top: 2px solid var(--focus-ring); 
-    width: 100%;
-  }
+  font-weight: bold;
+  font-family: var(--font-family);
+  font-feature-settings: var(--font-feature-settings, normal);
+  color: var(--primary-color);
+  letter-spacing: 2px;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+}

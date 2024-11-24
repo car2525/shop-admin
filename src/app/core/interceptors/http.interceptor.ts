@@ -2,14 +2,17 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { GlobalFacade } from '../services/global.facade';
 
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
 
+  constructor(private readonly globalFacade: GlobalFacade){}
+
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('start');
+    this.globalFacade.startLoading();
     return next.handle(req).pipe(
-      finalize(() => console.log('end'))
+      finalize(() => this.globalFacade.stopLoading())
     );
   }
 }

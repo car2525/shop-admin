@@ -1,9 +1,28 @@
-:host ::ng-deep .p-menubar {
-    background-color: var(--primary-color-dark, #04a1bc);
+::ng-deep .p-menubar {
+    background-color: var(--primary-color);
 }
 
+::ng-deep .p-menuitem-text,
+::ng-deep .p-menuitem-icon {
+    color: var(--primary-color-text);
+}
+
+::ng-deep .p-menuitem:hover .p-menuitem-text,
+::ng-deep .p-menuitem:hover .p-menuitem-icon {
+    color: var(--primary-color);
+}
+
+::ng-deep .p-menubar-button {
+    color: var(--primary-color-text);
+}
+
+::ng-deep .p-menubar-root-list {
+    background-color: var(--primary-color);
+    filter: brightness(1.2);
+}
 
 .logo img {
-    height: 40px;
-    margin-right: 1rem;
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 12px;
 }
