@@ -1,32 +1,33 @@
 <ng-container *ngIf="layout === 'list'; else grid">
-    <div class="border-1 surface-border surface-card border-round">
-        <div
-        class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
-        <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" [src]="productImage"
-            [alt]="product.title" />
-        <div
-            class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
-            <div class="flex flex-column align-items-center sm:align-items-start gap-3">
-                <div class="text-2xl font-bold text-900">{{ product.title }}</div>
-                <ng-container *ngTemplateOutlet="description; context: { $implicit: product }"></ng-container>
-                <div class="flex align-items-center gap-3">
-                    <ng-container *ngTemplateOutlet="category; context: { $implicit: product }"></ng-container>
+    <div class="border-1 surface-border surface-card border-round  position-relative">
+        <ng-container *ngTemplateOutlet="delete; context: { $implicit: product }"></ng-container>
+        <div class="flex flex-column xl:flex-row xl:align-items-start p-4 gap-4">
+            <img class="w-9 sm:w-16rem xl:w-10rem shadow-2 block xl:block mx-auto border-round" [src]="productImage"
+                [alt]="product.title" />
+            <div
+                class="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+                <div class="flex flex-column align-items-center sm:align-items-start gap-3">
+                    <div class="text-2xl font-bold text-900">{{ product.title }}</div>
+                    <ng-container *ngTemplateOutlet="description; context: { $implicit: product }"></ng-container>
+                    <div class="flex align-items-center gap-3">
+                        <ng-container *ngTemplateOutlet="category; context: { $implicit: product }"></ng-container>
+                    </div>
+                    <ng-container *ngTemplateOutlet="employee; context: { $implicit: product }"></ng-container>
                 </div>
-                <ng-container *ngTemplateOutlet="employee; context: { $implicit: product }"></ng-container>
             </div>
         </div>
-    </div>
-    <div class="pl-4 pb-2">
-        <ng-container *ngTemplateOutlet="price; context: { $implicit: product }"></ng-container>
-    </div>
-    <div class="reviews-container">
-        <ng-container *ngTemplateOutlet="reviews; context: { $implicit: product }"></ng-container>
-    </div>
+        <div class="pl-4 pb-2">
+            <ng-container *ngTemplateOutlet="price; context: { $implicit: product }"></ng-container>
+        </div>
+        <div class="reviews-container">
+            <ng-container *ngTemplateOutlet="reviews; context: { $implicit: product }"></ng-container>
+        </div>
     </div>
 </ng-container>
 
 <ng-template #grid>
-    <div class="p-4 border-1 surface-border surface-card border-round">
+    <div class="p-4 border-1 surface-border surface-card border-round position-relative">
+        <ng-container *ngTemplateOutlet="delete; context: { $implicit: product }"></ng-container>
         <div class="flex flex-wrap align-items-center justify-content-between gap-2">
             <ng-container *ngTemplateOutlet="category; context: { $implicit: product }"></ng-container>
         </div>
@@ -70,7 +71,7 @@
 
 <ng-template #reviews let-product>
     <p-accordion [activeIndex]="-1">
-        <p-accordionTab >
+        <p-accordionTab>
             <ng-template pTemplate="header">
                 <div class="flex gap-2 align-items-center">
                     <span class="font-bold white-space-nowrap">
@@ -91,4 +92,13 @@
 
 <ng-template #price let-product>
     <span>Price: <span class="text-2l font-semibold">{{ product.price }} €</span></span>
+</ng-template>
+
+<ng-template #delete let-product>
+    <button class="delete-icon p-button-rounded p-button-text p-button-danger" pTooltip="Delete Product"
+        tooltipPosition="left" (click)="deleteProduct($event, product)">
+        <i class="pi pi-trash"></i>
+    </button>
+    <!--needed for delete confirm-->
+    <p-confirmPopup key="{{product.id}}"></p-confirmPopup>
 </ng-template>

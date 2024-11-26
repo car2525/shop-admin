@@ -10,20 +10,27 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { DashboardEffects } from './redux/dashboard.effects';
 import { dashboardReducer } from './redux/dashboard.reducers';
+import { ProductFormComponent } from './components/product-form/product-form.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ConfirmationService } from 'primeng/api';
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
     ProductViewContainerComponent,
-    ProductItemComponent
+    ProductItemComponent,
+    ProductFormComponent
   ],
   imports: [
     CommonModule,
     DashboardRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
     SharedModule,
     StoreModule.forFeature('dashboardState', dashboardReducer),
     EffectsModule.forFeature([DashboardEffects]),
-]
+  ],
+  providers: [ConfirmationService]
 })
 export class DashboardModule { }

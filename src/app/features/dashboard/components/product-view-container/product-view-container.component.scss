@@ -7,7 +7,9 @@
 .actions {
     display: flex;
     align-items: center;
-    margin-top: 10px ;
+    justify-content: space-between;
+    margin-top: 10px;
+
     button {
         height: 30px;
         font-size: 10px
@@ -18,4 +20,16 @@
     font-size: 15px;
     cursor: pointer;
     margin-right: 5px;
+}
+
+::ng-deep p-dropdown .p-dropdown {
+    height: 35px;
+}
+
+::ng-deep p-dropdown .p-dropdown-label {
+    font-size: 9px;
+}
+
+::ng-deep p-dropdownitem {
+    font-size: 9px;
 }

@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Store as StoreModel } from 'src/app/core/api/models/store';
-import { deleteProduct, getProductById, getProducts, getStoreById, persistDetailProductAfterGet, persistProductsAfterGet, persistStoreAfterGet, saveNewProduct } from '../redux/dashboard.actions';
+import { deleteProduct, getProductById, getProducts, getStoreById, persistDetailProduct, persistProducts, persistStore, saveNewProduct } from '../redux/dashboard.actions';
 import { DashboardState } from '../redux/dashboard.reducers';
-import { selectProducts, selectSelectedProduct, selectStore, selectStoreName } from '../redux/dashboard.selectors';
+import { selectProducts, selectProductsSortedByTitle, selectSelectedProduct, selectStore, selectStoreEmployees, selectStoreName } from '../redux/dashboard.selectors';
 import { Product } from 'src/app/core/models/products';
 
 @Injectable({
@@ -17,14 +17,16 @@ export class DashboardFacade {
     store$: Observable<StoreModel | null> = this.store.pipe(select(selectStore));
     storeName$: Observable<string> = this.store.pipe(select(selectStoreName));
     products$: Observable<Product[] | null> = this.store.pipe(select(selectProducts));
+    productsOrderedByTitle$: Observable<Product[] | null> = this.store.pipe(select(selectProductsSortedByTitle));
     selectedProduct$: Observable<Product | null> = this.store.pipe(select(selectSelectedProduct));
+    storeEmployees$: Observable<string[]> = this.store.pipe(select(selectStoreEmployees));
 
     getStoreById(): void {
         this.store.dispatch(getStoreById());
     }
 
     persistStore(store: StoreModel): void {
-        this.store.dispatch(persistStoreAfterGet({ store }));
+        this.store.dispatch(persistStore({ store }));
     }
 
     getProducts(page?: number, elements?: number): void {
@@ -32,7 +34,7 @@ export class DashboardFacade {
     }
 
     persistProducts(products: Product[]): void {
-        this.store.dispatch(persistProductsAfterGet({ products }));
+        this.store.dispatch(persistProducts({ products }));
     }
 
     saveNewProduct(product: Product): void {
@@ -44,7 +46,7 @@ export class DashboardFacade {
     }
 
     persistDetailProduct(product: Product): void {
-        this.store.dispatch(persistDetailProductAfterGet({ product }));
+        this.store.dispatch(persistDetailProduct({ product }));
     }
 
     deleteProduct(idProduct: string): void {

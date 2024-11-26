@@ -6,7 +6,7 @@ const prefixDashboardAction = '[DASHBOARD]';
 
 export const getStoreById = createAction(`${prefixDashboardAction} get store by id`);
 
-export const persistStoreAfterGet = createAction(
+export const persistStore = createAction(
     `${prefixDashboardAction} persist Store result`,
     props<{ store: Store }>()
 );
@@ -15,7 +15,7 @@ export const getProducts = createAction(
     `${prefixDashboardAction} Get products of store`,
     props<{ page?: number, elements?: number }>());
 
-export const persistProductsAfterGet = createAction(
+export const persistProducts = createAction(
     `${prefixDashboardAction} persist Products result`,
     props<{ products: Product[] }>()
 );
@@ -25,18 +25,13 @@ export const saveNewProduct = createAction(
     props<{ product: Product }>()
 );
 
-export const saveProductSuccess = createAction(
-   `${prefixDashboardAction} save Product success`,
-    props<{ message: string }>()
-  );
-  
 
 export const getProductById = createAction(
     `${prefixDashboardAction} get Product by id`,
     props<{ idProduct: string }>()
 );
 
-export const persistDetailProductAfterGet = createAction(
+export const persistDetailProduct = createAction(
     `${prefixDashboardAction} persist detail product`,
     props<{ product: Product }>()
 );
@@ -45,8 +40,3 @@ export const deleteProduct = createAction(
     `${prefixDashboardAction} delete Product by id`,
     props<{ idProduct: string }>()
 );
-
-export const deleteProductSuccess = createAction(
-    `${prefixDashboardAction} delete Product success`,
-    props<{ message: string }>()
-  );

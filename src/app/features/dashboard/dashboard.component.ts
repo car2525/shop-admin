@@ -10,16 +10,22 @@ import { Product } from 'src/app/core/models/products';
 export class DashboardComponent implements OnInit {
 
   storeName$ = this.dashboardFacade.storeName$;
+  products$ = this.dashboardFacade.productsOrderedByTitle$;
+  storeEmployees$ = this.dashboardFacade.storeEmployees$;
 
-  products$ = this.dashboardFacade.products$;
-
-  layout = 'list';
-
-  constructor(private readonly dashboardFacade: DashboardFacade) { }
+  constructor(private readonly dashboardFacade: DashboardFacade) {}
 
   ngOnInit(): void {
     this.dashboardFacade.getStoreById();
     this.dashboardFacade.getProducts();
+  }
+
+  deleteProduct(productId: string): void {
+    this.dashboardFacade.deleteProduct(productId);
+  }
+
+  saveProduct(product: Product): void {
+    this.dashboardFacade.saveNewProduct(product);
   }
 
 }

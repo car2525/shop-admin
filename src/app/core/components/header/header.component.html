@@ -1,7 +1,7 @@
 <div class="menu">
-  <p-menubar [model]="menuItems">
+  <p-menubar [model]="menuItems"  [autoZIndex]="false">
     <ng-template pTemplate="start">
-      <div class="logo">
+      <div class="logo" tabindex="-1">
         <img src="assets/sweet.jpg" alt="Logo" />
       </div>
     </ng-template>

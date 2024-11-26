@@ -1,6 +1,6 @@
 import { Store } from 'src/app/core/api/models/store';
 import { dashboardReducer, initialState } from '../dashboard.reducers';
-import { persistDetailProductAfterGet, persistProductsAfterGet, persistStoreAfterGet } from '../dashboard.actions';
+import { persistDetailProduct, persistProducts, persistStore } from '../dashboard.actions';
 import { Product } from 'src/app/core/models/products';
 
 describe('Dashboard Reducer', () => {
@@ -11,14 +11,14 @@ describe('Dashboard Reducer', () => {
         expect(state).toEqual(initialState);
     });
 
-    it('should update the store on persistStoreAfterGet action', () => {
+    it('should update the store on persistStore action', () => {
         const storeMock: Store = {
             name: 'Negozio Test',
             category: 'Test category',
             employees: ['Test employee1', 'Test employee2']
         };
 
-        const action = persistStoreAfterGet({ store: storeMock });
+        const action = persistStore({ store: storeMock });
         const state = dashboardReducer(initialState, action);
 
         expect(state).toEqual({
@@ -27,7 +27,7 @@ describe('Dashboard Reducer', () => {
         });
     });
 
-    it('should update the products on persistProductsAfterGet action', () => {
+    it('should update the products on persistProducts action', () => {
         const productsMock: Product[] = [
             { 
                 id: 'abc123',
@@ -44,7 +44,7 @@ describe('Dashboard Reducer', () => {
                 reviews: ['Eccellente', 'Buono']
              }
         ];
-        const action = persistProductsAfterGet({ products: productsMock });
+        const action = persistProducts({ products: productsMock });
         const state = dashboardReducer(initialState, action);
 
         expect(state).toEqual({
@@ -53,14 +53,14 @@ describe('Dashboard Reducer', () => {
         });
     });
 
-    it('should update the selectedProduct on persistDetailProductAfterGet action', () => {
+    it('should update the selectedProduct on persistDetailProduct action', () => {
         const productMock: Product = { 
             id: 'abc123',
             category: 'Test category',
             price: 10,
             title: 'Test title',
          };
-        const action = persistDetailProductAfterGet({ product: productMock });
+        const action = persistDetailProduct({ product: productMock });
         const state = dashboardReducer(initialState, action);
 
         expect(state).toEqual({

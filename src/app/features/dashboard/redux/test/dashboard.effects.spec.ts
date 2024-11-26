@@ -6,9 +6,9 @@ import { of, throwError, toArray } from 'rxjs';
 import { ApiService } from 'src/app/core/api/api/api.service';
 import { ProductResponse } from 'src/app/core/api/models/productResponse';
 import { Store } from 'src/app/core/api/models/store';
-import { handleError } from 'src/app/core/redux/global.actions';
+import { handleError, operationSuccess } from 'src/app/core/redux/global.actions';
 import { selectIdStore } from 'src/app/core/redux/global.selectors';
-import { deleteProduct, deleteProductSuccess, getProducts, getStoreById, persistProductsAfterGet, persistStoreAfterGet, saveNewProduct, saveProductSuccess } from '../dashboard.actions';
+import { deleteProduct, getProducts, getStoreById, persistProducts, persistStore, saveNewProduct } from '../dashboard.actions';
 import { DashboardEffects } from '../dashboard.effects';
 
 describe('DashboardEffects', () => {
@@ -43,13 +43,13 @@ describe('DashboardEffects', () => {
         store.overrideSelector(selectIdStore, initialState.idStore);
     });
 
-    it('should dispatch persistStoreAfterGet on getStoreById success', () => {
+    it('should dispatch persistStore on getStoreById success', () => {
         const mockStore: Store = { name: 'Negozio 1', category: 'Test category', employees: ['Paolo', 'Mario'] };
         apiService.getStoresIdStore.and.returnValue(of(mockStore));
         actions$ = of(getStoreById());
 
         effects.getStoreById$.subscribe((result) => {
-            expect(result).toEqual(persistStoreAfterGet({ store: mockStore }));
+            expect(result).toEqual(persistStore({ store: mockStore }));
         });
     });
 
@@ -62,7 +62,7 @@ describe('DashboardEffects', () => {
         });
     });
 
-    it('should dispatch persistProductsAfterGet on getProducts success', () => {
+    it('should dispatch persistProducts on getProducts success', () => {
         const products = [
             { title: 'Product 1', category: 'Test category', price: 4, reviews: ['Great', '', '  '] },
             { title: 'Product 2', category: 'Test category', price: 6, reviews: ['Amazing', ''] },
@@ -83,7 +83,7 @@ describe('DashboardEffects', () => {
 
         effects.getProducts$.subscribe((result) => {
             expect(result).toEqual(
-                persistProductsAfterGet({
+                persistProducts({
                     products: normalizedProducts,
                 })
             );
@@ -99,7 +99,7 @@ describe('DashboardEffects', () => {
         });
     });
 
-    it('should dispatch saveProductSuccess and getProducts on saveNewProduct success', () => {
+    it('should dispatch operationSuccess, persistProducta and getProducts on saveNewProduct success', () => {
         apiService.postProducts.and.returnValue(of('abc123'));
         actions$ = of(saveNewProduct(
             {
@@ -117,7 +117,8 @@ describe('DashboardEffects', () => {
 
         effects.saveNewProduct$.pipe(toArray()).subscribe((results) => {
             expect(results).toEqual([
-                saveProductSuccess({ message: 'Prodotto salvato con successo!' }),
+                operationSuccess({ message: 'Prodotto salvato con successo!' }),
+                persistProducts({ products: [] }),
                 getProducts({}),
             ]);
         });
@@ -132,14 +133,15 @@ describe('DashboardEffects', () => {
         });
     });
 
-    it('should dispatch deleteProductSuccess and getProducts on deleteProduct success', () => {
+    it('should dispatch operationSuccess, persistProducts and getProducts on deleteProduct success', () => {
 
         apiService.deleteProduct.and.returnValue(of('cancel ok'));
         actions$ = of(deleteProduct({ idProduct: 'abc123' }));
 
         effects.deleteProduct$.pipe(toArray()).subscribe((results) => {
             expect(results).toEqual([
-                deleteProductSuccess({ message: 'Prodotto eliminato con successo!' }),
+                operationSuccess({ message: 'Prodotto eliminato con successo!' }),
+                persistProducts({ products: [] }),
                 getProducts({}),
             ]);
         });

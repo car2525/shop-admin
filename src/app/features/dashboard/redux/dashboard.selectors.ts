@@ -14,10 +14,25 @@ export const selectStoreName = createSelector(
     (state) => state.store?.name ?? ''
 );
 
+export const selectStoreEmployees = createSelector(
+    selectDashboardState,
+    (state) => [''].concat(state.store?.employees ?? [])
+);
+
 export const selectProducts = createSelector(
     selectDashboardState,
     (state) => state.products
 );
+
+export const selectProductsSortedByTitle = createSelector(
+    selectProducts,
+    (products) => {
+      if (!products) {
+        return [];
+      }
+      return [...products].sort((a, b) => a.title.localeCompare(b.title));
+    }
+  );
 
 export const selectSelectedProduct = createSelector(
     selectDashboardState,

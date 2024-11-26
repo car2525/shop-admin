@@ -3,7 +3,7 @@ import { Store } from "@ngrx/store";
 import { provideMockStore } from "@ngrx/store/testing";
 import { Store as StoreModel } from "src/app/core/api/models/models";
 import { Product } from "src/app/core/models/products";
-import { deleteProduct, getProducts, getStoreById, persistStoreAfterGet, saveNewProduct } from "../redux/dashboard.actions";
+import { deleteProduct, getProducts, getStoreById, persistStore, saveNewProduct } from "../redux/dashboard.actions";
 import { DashboardFacade } from "./dashboard.facade";
 
 describe('DashboardFacade', () => {
@@ -30,12 +30,12 @@ describe('DashboardFacade', () => {
         expect(store.dispatch).toHaveBeenCalledWith(getStoreById());
     });
 
-    it('should dispatch persistStoreAfterGet action', () => {
+    it('should dispatch persistStore action', () => {
         const mockStore: StoreModel = { name: 'Test Store', category: 'Category', employees: ['Alice', 'Mario'] };
 
         facade.persistStore(mockStore);
 
-        expect(store.dispatch).toHaveBeenCalledWith(persistStoreAfterGet({ store: mockStore }));
+        expect(store.dispatch).toHaveBeenCalledWith(persistStore({ store: mockStore }));
     });
 
     it('should dispatch getProducts action with correct payload', () => {

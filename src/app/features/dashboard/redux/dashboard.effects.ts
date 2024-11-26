@@ -4,24 +4,22 @@ import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap, take, withLatestFrom } from 'rxjs/operators';
 import { ApiService } from 'src/app/core/api/api/api.service';
+import { ProductItem } from 'src/app/core/api/models/productItem';
+import { ProductResponse } from 'src/app/core/api/models/productResponse';
 import { Store as StoreModel } from 'src/app/core/api/models/store';
-import { handleError } from 'src/app/core/redux/global.actions';
+import { Product } from 'src/app/core/models/products';
+import { handleError, operationSuccess } from 'src/app/core/redux/global.actions';
 import { selectIdStore } from 'src/app/core/redux/global.selectors';
 import {
   deleteProduct,
-  deleteProductSuccess,
   getProductById,
   getProducts,
   getStoreById,
-  persistDetailProductAfterGet,
-  persistProductsAfterGet,
-  persistStoreAfterGet,
-  saveNewProduct,
-  saveProductSuccess,
+  persistDetailProduct,
+  persistProducts,
+  persistStore,
+  saveNewProduct
 } from './dashboard.actions';
-import { Product } from 'src/app/core/models/products';
-import { ProductResponse } from 'src/app/core/api/models/productResponse';
-import { ProductItem } from 'src/app/core/api/models/productItem';
 
 @Injectable()
 export class DashboardEffects {
@@ -35,7 +33,7 @@ export class DashboardEffects {
       take(1),
       switchMap(([_, idStore]) =>
         this.apiService.getStoresIdStore(idStore).pipe(
-          map((store: StoreModel) => persistStoreAfterGet({ store })),
+          map((store: StoreModel) => persistStore({ store })),
           catchError((_) =>
             of(handleError(
               {
@@ -64,7 +62,7 @@ export class DashboardEffects {
                   ...this.normalizeProductData(item.data)
                 } as Product
               });
-            return persistProductsAfterGet({ products });
+            return persistProducts({ products });
           }),
           catchError((_) =>
             of(handleError(
@@ -83,20 +81,23 @@ export class DashboardEffects {
     this.actions$.pipe(
       ofType(saveNewProduct),
       withLatestFrom(this.store.select(selectIdStore)),
-      switchMap(([action, idStore]) =>
-        this.apiService.postProducts(idStore, action.product).pipe(
+      switchMap(([action, idStore]) => {
+        return this.apiService.postProducts(idStore, action.product).pipe(
           mergeMap(() => [
-            saveProductSuccess({ message: 'Prodotto salvato con successo!' }),
+            operationSuccess({ message: 'Prodotto salvato con successo!' }),
+            persistProducts({ products: [] }),
             getProducts({}),
           ]),
-          catchError((_) =>
-            of(handleError(
+          catchError((_) => {
+            return of(handleError(
               {
                 errorMsg: 'Errore durante il salvataggio'
               }
             )
-            ))
+            )})
         )
+      }
+        
       )
     )
   );
@@ -108,7 +109,7 @@ export class DashboardEffects {
       withLatestFrom(this.store.select(selectIdStore)),
       switchMap(([action, idStore]) =>
         this.apiService.getProduct(idStore, action.idProduct).pipe(
-          map((product: Product) => persistDetailProductAfterGet({ product })),
+          map((product: Product) => persistDetailProduct({ product })),
           catchError((_) =>
             of(handleError(
               {
@@ -129,7 +130,8 @@ export class DashboardEffects {
       switchMap(([action, idStore]) =>
         this.apiService.deleteProduct(idStore, action.idProduct).pipe(
           mergeMap(() => [
-            deleteProductSuccess({ message: 'Prodotto eliminato con successo!' }),
+            operationSuccess({ message: 'Prodotto eliminato con successo!' }),
+            persistProducts({ products: [] }),
             getProducts({}),
           ]),
           catchError((_) =>
