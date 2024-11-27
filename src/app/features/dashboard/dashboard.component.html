@@ -1,1 +1,7 @@
-<p>dashboard works!</p>
+<sa-product-view-container
+  [storeName]="(storeName$ | async) ?? ''"
+  [products]="(products$ | async) ?? []"
+  [storeEmployees]="(storeEmployees$ | async) ?? []"
+  (onAddProductEvt)="saveProduct($event)"
+  (onDeleteProductEvt)="deleteProduct($event)">
+</sa-product-view-container>

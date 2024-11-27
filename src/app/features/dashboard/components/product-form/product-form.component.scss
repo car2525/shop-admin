@@ -1,0 +1,40 @@
+.product-form {
+    .icon-add-review {
+        cursor: pointer;
+        color: var(--primary-color);
+        font-size: 25px;
+    }
+
+    .review-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        margin-bottom: 8px;
+        border: 1px solid #014f7b;
+        border-radius: 6px;
+        padding: 10px;
+        word-break: break-word;
+    }
+
+    .review-text {
+        flex: 1;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .review-remove {
+        flex-shrink: 0;
+        cursor: pointer;
+        color: var(--red-500);
+    }
+
+    p-inputNumber {
+        width: 100% !important;
+    }
+
+    p-inputNumber .p-inputtext,
+    p-inputNumber .p-inputnumber {
+        width: 100% !important;
+    }
+}

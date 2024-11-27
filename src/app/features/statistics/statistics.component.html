@@ -1,1 +1,15 @@
-<p>statistics works!</p>
+<div class="flex justify-content-center mb-5">
+  <sa-title [titleText]="storeName"> </sa-title>
+</div>
+  <div [ngClass]="{'hidden': (loadingChart)}">
+    <sa-chart *ngIf="chartData"
+    [type]="'polarArea'"
+    [data]="chartData"
+    [options]="chartOptions"
+    [responsive]="true"
+    [style]="{ height: '100px', width: '50%' }"
+  ></sa-chart>
+</div>
+
+
+

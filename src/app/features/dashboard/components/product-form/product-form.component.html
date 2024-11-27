@@ -1,0 +1,100 @@
+<form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="product-form">
+    <div class="field">
+        <label for="title" class="block">Title*</label>
+        <input pInputText id="title" type="text" 
+        placeholder="Add a title (max 100 characters)"  [maxlength]="100"
+        formControlName="title" class="w-full" />
+        <small *ngIf="productForm.get('title')?.invalid && productForm.get('title')?.dirty" class="p-error block">
+            Title is invalid
+        </small>
+    </div>
+
+    <div class="field">
+        <label for="description" class="block">Description</label>
+        <textarea rows="3" cols="30" pInputTextarea
+        placeholder="Add a decription (max 150 characters)"  [maxlength]="150"
+        formControlName="description" class="w-full"></textarea>
+        <small *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.dirty"
+            class="p-error block">
+            Description is invalid
+        </small>
+    </div>
+
+    <div class="field">
+        <label for="category" class="block">Category*</label>
+        <input pInputText id="category" type="text" 
+        placeholder="Add a category (max 80 characters)"  [maxlength]="80"
+        formControlName="category" class="w-full" />
+        <small *ngIf="productForm.get('category')?.invalid && productForm.get('category')?.dirty" class="p-error block">
+            Category is invalid
+        </small>
+    </div>
+
+    <div class="grid">
+        <div class="field col-12 lg:col-6">
+            <label for="price" class="block">Price (€)*</label>
+            <p-inputNumber  id="price" formControlName="price" class="w-full" mode="currency" currency="EUR"
+              [max]="9999999"
+                locale="it-IT" [minFractionDigits]="2">
+            </p-inputNumber>
+            <small *ngIf="productForm.get('price')?.invalid && productForm.get('price')?.dirty" class="p-error block">
+                Price is invalid
+            </small>
+        </div>
+
+        <div class="field col-12 lg:col-6">
+            <label for="employee" class="block">Employee</label>
+            <p-dropdown styleClass="w-full" formControlName="employee" [options]="employees"
+                placeholder="Select a Employee"></p-dropdown>
+        </div>
+    </div>
+    <div>
+        <p-accordion [activeIndex]="-1">
+            <p-accordionTab>
+                <ng-template pTemplate="header">
+                    <div class="flex gap-2 align-items-center">
+                        <span class="white-space-nowrap">
+                            Reviews
+                        </span>
+                        <p-badge value="{{productReviews.length}}" class="ml-auto mr-2" />
+                    </div>
+                </ng-template>
+                <ng-container *ngIf="productReviews.length > 0; else noReview">
+                    <div *ngFor="let review of productReviews; let i=index"
+                    class="review-item">
+                            <span class="review-text">{{ review }}</span>
+                            <i class="pi pi-times review-remove" pTooltip="Delete review"
+                            tooltipPosition="left" 
+                            (click)="removeReview(i)"></i>
+                    </div>
+                </ng-container>
+                <ng-template #noReview> No reviews!</ng-template>
+            </p-accordionTab>
+        </p-accordion>
+    </div>
+
+
+    <div class="flex justify-content-between align-items-center mb-3 mt-1 gap-2">
+        <div class="w-full">
+            <textarea [maxlength]="150" placeholder="Add a review (max 150 characters)" rows="3" cols="30" pInputTextarea formControlName="review"
+            class="w-full"></textarea>
+            <small *ngIf="productForm.get('review')?.invalid && productForm.get('review')?.dirty" class="p-error block">
+                Review is invalid
+            </small>
+        </div>
+        <button pButton type="button" class="p-button-rounded p-button-text p-button-icon-only " pTooltip="Add review"
+            tooltipPosition="left" 
+            [disabled]="!productForm.get('review')?.value || productForm.get('review')?.value?.trim() === '' || productForm.get('review')?.invalid"
+            (click)="addReview()">
+            <i class="pi pi-plus-circle icon-add-review"></i>
+        </button>
+    </div>
+
+    <div class="flex flex-column sm:flex-row justify-content-end gap-2 mt-4">
+        <button pButton label="Submit" icon="pi pi-check" class="p-button-primary w-full sm:w-auto"
+            [disabled]="productForm.invalid"></button>
+        <button pButton label="Cancel" icon="pi pi-times" type="button"
+        class="p-button-secondary w-full sm:w-auto cancel-button"
+            (click)="onCancel()"></button>
+    </div>
+</form>

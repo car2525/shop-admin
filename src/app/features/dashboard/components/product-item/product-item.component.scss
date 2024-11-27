@@ -1,0 +1,63 @@
+.category {
+    color: var(--primary-400);
+}
+
+.description-box {
+    min-height: 70px; 
+    max-height: 70px; 
+    overflow-y: auto;  
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+.title-container {
+    min-height: 70px; 
+    max-height: 70px; 
+    overflow-y: auto;  
+    word-wrap: break-word; 
+    word-break: break-word;
+    width: 98%;
+}
+
+.category-container-list { 
+    max-height: 50px; 
+    overflow-y: auto;  
+    word-wrap: break-word; 
+    word-break: break-word;
+}
+
+.category-container-grid { 
+    max-height: 50px; 
+    overflow-y: auto;  
+    word-wrap: break-word; 
+    width: 98%;
+}
+
+.reviews-container {
+    margin: 5px;
+}
+
+.position-relative {
+    position: relative;
+}
+
+.delete-icon {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 10;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--red-500);
+    transition: color 0.3s ease;
+}
+
+.delete-icon:hover {
+    color: var(--red-700);
+}
+
+.p-confirm-popup .p-confirm-popup-content {
+    word-wrap: break-word;
+    gap: 5px;
+}

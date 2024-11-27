@@ -1,9 +1,50 @@
-:host ::ng-deep .p-menubar {
-    background-color: var(--primary-color-dark, #04a1bc);
-}
+.menu {
+    .p-menubar {
+      background-color: var(--primary-color);
+  
+      &.p-menubar-root-list {
+        background-color: unset;
+      }
 
-
-.logo img {
-    height: 40px;
-    margin-right: 1rem;
-}
+      &.p-menubar-mobile-active .p-menubar-root-list {
+        background-color: var(--primary-color);
+      }
+  
+      .p-menuitem {
+        &:not(.p-highlight):not(.p-disabled) {
+          > .p-menuitem-content:hover {
+            background-color: black;
+          }
+  
+          &.p-focus > .p-menuitem-content {
+            background-color: black;
+          }
+        }
+        
+        .p-menuitem-text,
+        .p-menuitem-icon {
+          color: var(--primary-color-text);
+        }
+  
+        &:hover {
+          .p-menuitem-text,
+          .p-menuitem-icon {
+            color: var(--primary-color);
+          }
+        }
+      }
+  
+      .p-menubar-button {
+        color: var(--primary-color-text);
+      }
+    }
+  
+    .logo {
+      img {
+        height: 50px;
+        margin-right: 10px;
+        border-radius: 12px;
+      }
+    }
+  }
+  

@@ -1,0 +1,57 @@
+<div class="card" *ngIf="products">
+    <p-dataView #dv 
+    class="product-data-view"
+    [value]="products"
+     [layout]="layout" 
+     [rows]="rows"
+      [paginator]="products.length > 0" 
+      [sortField]="sortField" 
+      [sortOrder]="sortOrder"
+      (onPage)="onPageChange(dv)">
+
+        <ng-template pTemplate="header">
+            <div class="header-container">
+                <sa-title title [titleText]="storeName"></sa-title>
+                <p-dataViewLayoutOptions pTooltip="Change view" tooltipPosition="top">
+                </p-dataViewLayoutOptions>
+            </div>
+            <div class="actions">
+                <button (click)="showDialog()" class="p-button" pTooltip="Add new Product" tooltipPosition="top">
+                    <i class="pi pi-plus-circle icon-action"></i> Add new Product
+                </button>
+                <p-dropdown class="order-dropdown" [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Title"
+                    (onChange)="onSortChange($event)" styleClass="mb-2 md:mb-0">
+                </p-dropdown> 
+            </div>
+        </ng-template>
+
+        <ng-template let-product pTemplate="listItem">
+            <div class="col-12">
+                <sa-product-item [product]="product" [layout]="'list'"
+                    (deleteEvt)="deleteProduct(product.id)"></sa-product-item>
+            </div>
+        </ng-template>
+
+        <ng-template let-product pTemplate="gridItem">
+            <div class="col-12 sm:col-6 lg:col-12 xl:col-4 p-2">
+                <sa-product-item [product]="product" [layout]="'grid'"
+                    (deleteEvt)="deleteProduct(product.id)"></sa-product-item>
+            </div>
+        </ng-template>
+
+        <ng-template pTemplate="empty">
+            <div class="p-4 text-center">
+                <p class="text-lg">No products available</p>
+            </div>
+        </ng-template>
+    </p-dataView>
+
+    <p-dialog [(visible)]="isDialogVisible" [header]="'New Product'" [closable]="true" [modal]="true"
+        [style]="{width: '50vw'}">
+        <sa-product-form *ngIf="isDialogVisible" 
+        [employees]="storeEmployees"
+        (addEvt)="onProductAdded($event)"
+         (cancelEvt)="hideDialog()">
+        </sa-product-form>
+    </p-dialog>
+</div>
