@@ -1,7 +1,6 @@
-import { Store } from 'src/app/core/api/models/store';
-import { dashboardReducer, initialState } from '../dashboard.reducers';
-import { persistDetailProduct, persistProducts, persistStore } from '../dashboard.actions';
 import { Product } from 'src/app/core/models/products';
+import { persistDetailProduct, persistProducts } from '../dashboard.actions';
+import { dashboardReducer, initialState } from '../dashboard.reducers';
 
 describe('Dashboard Reducer', () => {
     it('should return the initial state for an unknown action', () => {
@@ -9,22 +8,6 @@ describe('Dashboard Reducer', () => {
         const state = dashboardReducer(initialState, unknownAction);
 
         expect(state).toEqual(initialState);
-    });
-
-    it('should update the store on persistStore action', () => {
-        const storeMock: Store = {
-            name: 'Negozio Test',
-            category: 'Test category',
-            employees: ['Test employee1', 'Test employee2']
-        };
-
-        const action = persistStore({ store: storeMock });
-        const state = dashboardReducer(initialState, action);
-
-        expect(state).toEqual({
-            ...initialState,
-            store: storeMock,
-        });
     });
 
     it('should update the products on persistProducts action', () => {

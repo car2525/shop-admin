@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 import { AppComponent } from './app.component';
@@ -7,14 +7,18 @@ import { STORE_ID } from './core/constants/constants';
 import { GlobalFacade } from './core/services/global.facade';
 
 describe('AppComponent', () => {
-  let appFacade: GlobalFacade;
+  let globalFacade: GlobalFacade;
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  const spy = jasmine.createSpyObj('GlobalFacade', ['persistIdStore']);
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
       declarations: [AppComponent],
       imports: [CoreModule, RouterTestingModule],
-      providers: [
-        GlobalFacade,
+      providers: [ 
+        { provide: GlobalFacade, useValue: spy },
         provideMockStore({
           initialState: { 
             idStore: ''
@@ -23,19 +27,18 @@ describe('AppComponent', () => {
       ],
     }).compileComponents();
 
-    appFacade = TestBed.inject(GlobalFacade);
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    globalFacade = TestBed.inject(GlobalFacade) as jasmine.SpyObj<GlobalFacade>;
   });
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+    expect(component).toBeTruthy();
   });
 
-  it('should call persistIdStore with the correct STORE_ID', () => {
-    const spy = spyOn(appFacade, 'persistIdStore'); // Spia sul metodo del facade
-    TestBed.createComponent(AppComponent);
-    expect(spy).toHaveBeenCalledOnceWith(STORE_ID); // Verifica che il valore sia passato
+  it('should call persistIdStore with the correct STORE_ID on ngOnInit', () => {
+    component.ngOnInit();
+    expect(globalFacade.persistIdStore).toHaveBeenCalledOnceWith(STORE_ID);
   });
 
 });

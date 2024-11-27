@@ -22,14 +22,14 @@
     margin-right: 5px;
 }
 
-::ng-deep p-dropdown .p-dropdown {
+p-dropdown.order-dropdown .p-dropdown {
     height: 35px;
 }
 
-::ng-deep p-dropdown .p-dropdown-label {
+p-dropdown.order-dropdown .p-dropdown-label  {
     font-size: 9px;
 }
 
-::ng-deep p-dropdownitem {
+p-dropdown.order-dropdown p-dropdownitem {
     font-size: 9px;
 }

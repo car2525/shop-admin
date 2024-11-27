@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { MessageService } from 'primeng/api';
-import { handleError, operationSuccess } from './global.actions';
-import { tap } from 'rxjs';
+import { catchError, map, of, switchMap, take, tap } from 'rxjs';
+import { Store as StoreModel } from 'src/app/core/api/models/store';
+import { ApiService } from '../api/api/api.service';
+import { handleError, operationSuccess, persistStore, persistStoreId } from './global.actions';
 
 @Injectable()
 export class GlobalEffects {
   constructor(
     private readonly actions$: Actions,
-    private readonly messageService: MessageService
+    private readonly messageService: MessageService,
+    private readonly apiService: ApiService
   ) {}
 
   showErrorMessage$ = createEffect(
@@ -39,6 +42,26 @@ export class GlobalEffects {
         })
       ),
     { dispatch: false }
+  );
+
+  // Effetto per ottenere un negozio tramite ID
+  getStoreById$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(persistStoreId),
+      take(1),
+      switchMap((action) =>
+        this.apiService.getStoresIdStore(action.idStore).pipe(
+          map((store: StoreModel) => persistStore({ store })),
+          catchError((_) =>
+            of(handleError(
+              {
+                errorMsg: 'Errore nel recupero delle informazioni sul negozio'
+              }
+            )
+            ))
+        )
+      )
+    )
   );
 
 }

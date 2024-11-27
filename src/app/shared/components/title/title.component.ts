@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'sa-title',
@@ -7,5 +7,4 @@ import { Component, Input } from '@angular/core';
 })
 export class TitleComponent {
   @Input() titleText = '';
-
 }

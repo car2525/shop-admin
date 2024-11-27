@@ -1,14 +1,17 @@
 import { createReducer, on } from "@ngrx/store";
-import { loadingStart, loadingStop, persistStoreId } from "./global.actions";
+import { loadingStart, loadingStop, persistStore, persistStoreId } from "./global.actions";
+import { Store } from "../api/models/store";
 
 export interface GlobalState {
   idStore: string;
-  isLoading: boolean
+  isLoading: boolean,
+  store: Store | null;
 }
 
 export const initialState: GlobalState = {
   idStore: '',
-  isLoading: false
+  isLoading: false,
+  store: null
 };
 
 export const globalReducer = createReducer(
@@ -18,5 +21,9 @@ export const globalReducer = createReducer(
     idStore,
   })),
   on(loadingStart, state => ({ ...state, isLoading: true })),
-  on(loadingStop, state => ({ ...state, isLoading: false }))
+  on(loadingStop, state => ({ ...state, isLoading: false })),
+  on(persistStore, (state, { store }) => ({
+    ...state,
+    store,
+  })),
 );

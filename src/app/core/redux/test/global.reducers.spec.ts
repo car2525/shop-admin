@@ -1,5 +1,6 @@
+import { Store } from '../../api/models/models';
 import { STORE_ID } from '../../constants/constants';
-import { loadingStart, loadingStop, persistStoreId } from '../global.actions';
+import { loadingStart, loadingStop, persistStore, persistStoreId } from '../global.actions';
 import { globalReducer, initialState } from '../global.reducers';
 
 describe('GlobalReducer', () => {
@@ -30,6 +31,22 @@ describe('GlobalReducer', () => {
         const state = globalReducer(initialState, action);
 
         expect(state.isLoading).toBe(false);
+    });
+
+    it('should update the store on persistStore action', () => {
+        const storeMock: Store = {
+            name: 'Negozio Test',
+            category: 'Test category',
+            employees: ['Test employee1', 'Test employee2']
+        };
+
+        const action = persistStore({ store: storeMock });
+        const state = globalReducer(initialState, action);
+
+        expect(state).toEqual({
+            ...initialState,
+            store: storeMock,
+        });
     });
 
 });

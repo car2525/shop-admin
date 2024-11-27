@@ -1,15 +1,7 @@
 import { createAction, props } from "@ngrx/store";
-import { Store } from "src/app/core/api/models/store";
 import { Product } from "src/app/core/models/products";
 
 const prefixDashboardAction = '[DASHBOARD]';
-
-export const getStoreById = createAction(`${prefixDashboardAction} get store by id`);
-
-export const persistStore = createAction(
-    `${prefixDashboardAction} persist Store result`,
-    props<{ store: Store }>()
-);
 
 export const getProducts = createAction(
     `${prefixDashboardAction} Get products of store`,
@@ -24,7 +16,6 @@ export const saveNewProduct = createAction(
     `${prefixDashboardAction} save new Product`,
     props<{ product: Product }>()
 );
-
 
 export const getProductById = createAction(
     `${prefixDashboardAction} get Product by id`,

@@ -6,14 +6,31 @@
     min-height: 70px; 
     max-height: 70px; 
     overflow-y: auto;  
-    word-wrap: break-word; 
+    word-wrap: break-word;
+    word-break: break-word;
 }
 
-.title-container-grid {
+.title-container {
     min-height: 70px; 
     max-height: 70px; 
     overflow-y: auto;  
     word-wrap: break-word; 
+    word-break: break-word;
+    width: 98%;
+}
+
+.category-container-list { 
+    max-height: 50px; 
+    overflow-y: auto;  
+    word-wrap: break-word; 
+    word-break: break-word;
+}
+
+.category-container-grid { 
+    max-height: 50px; 
+    overflow-y: auto;  
+    word-wrap: break-word; 
+    width: 98%;
 }
 
 .reviews-container {
@@ -40,7 +57,7 @@
     color: var(--red-700);
 }
 
-::ng-deep .p-confirm-popup .p-confirm-popup-content {
+.p-confirm-popup .p-confirm-popup-content {
     word-wrap: break-word;
-    gap: 3px;
+    gap: 5px;
 }

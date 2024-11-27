@@ -13,3 +13,18 @@ export const selectIsLoading = createSelector(
     selectGlobalState,
     (state) => state.isLoading
 );
+
+export const selectStore = createSelector(
+    selectGlobalState,
+    (state) => state.store
+);
+
+export const selectStoreName = createSelector(
+    selectGlobalState,
+    (state) => state.store?.name ?? ''
+);
+
+export const selectStoreEmployees = createSelector(
+    selectGlobalState,
+    (state) => [''].concat(state.store?.employees ?? [])
+);

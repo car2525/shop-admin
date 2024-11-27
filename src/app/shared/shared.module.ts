@@ -4,6 +4,7 @@ import { AccordionModule } from 'primeng/accordion';
 import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { ChartModule } from 'primeng/chart';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { DataViewModule } from 'primeng/dataview';
 import { DialogModule } from 'primeng/dialog';
@@ -17,13 +18,17 @@ import { MessageModule } from 'primeng/message';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TooltipModule } from 'primeng/tooltip';
 import { TitleComponent } from './components/title/title.component';
+import { FormsModule } from '@angular/forms';
+import { ChartComponent } from './components/chart/chart.component';
 
 @NgModule({
   declarations: [
-    TitleComponent
+    TitleComponent,
+    ChartComponent
   ],
   imports: [
     CommonModule,
+    FormsModule,
     CardModule,
     ProgressSpinnerModule,
     DividerModule,
@@ -39,10 +44,12 @@ import { TitleComponent } from './components/title/title.component';
     DropdownModule,
     DialogModule,
     ButtonModule,
-    ConfirmPopupModule
+    ConfirmPopupModule,
+    ChartModule
   ],
   exports: [
     TitleComponent,
+    ChartComponent,
     CardModule,
     ProgressSpinnerModule,
     DividerModule,
@@ -58,9 +65,10 @@ import { TitleComponent } from './components/title/title.component';
     DropdownModule,
     DialogModule,
     ButtonModule,
-    ConfirmPopupModule
+    ConfirmPopupModule,
+    ChartModule,
   ],
-  providers: [
-  ]
+  providers: [],
+  
 })
 export class SharedModule { }

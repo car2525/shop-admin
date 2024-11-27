@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { loadingStart, loadingStop, persistStoreId } from '../redux/global.actions';
+import { getStoreById, loadingStart, loadingStop, persistStore, persistStoreId } from '../redux/global.actions';
 import { GlobalState } from '../redux/global.reducers';
-import { selectIdStore, selectIsLoading } from '../redux/global.selectors';
-
+import { selectIdStore, selectIsLoading, selectStore, selectStoreEmployees, selectStoreName } from '../redux/global.selectors';
+import { Store as StoreModel } from 'src/app/core/api/models/store';
 @Injectable({
     providedIn: 'root',
 })
@@ -15,9 +15,9 @@ export class GlobalFacade {
     storeId$: Observable<string> = this.store.pipe(select(selectIdStore));
     isLoading$: Observable<boolean> = this.store.pipe(select(selectIsLoading));
 
-    persistIdStore(idStore: string): void {
-        this.store.dispatch(persistStoreId({ idStore: idStore }));
-    }
+    store$: Observable<StoreModel | null> = this.store.pipe(select(selectStore));
+    storeName$: Observable<string> = this.store.pipe(select(selectStoreName));
+    storeEmployees$: Observable<string[]> = this.store.pipe(select(selectStoreEmployees));
 
     startLoading(): void {
         this.store.dispatch(loadingStart());
@@ -25,6 +25,18 @@ export class GlobalFacade {
 
     stopLoading(): void {
         this.store.dispatch(loadingStop());
+    }
+
+    persistIdStore(idStore: string): void {
+        this.store.dispatch(persistStoreId({ idStore: idStore }));
+    }
+
+    getStoreById(): void {
+        this.store.dispatch(getStoreById());
+    }
+
+    persistStore(store: StoreModel): void {
+        this.store.dispatch(persistStore({ store }));
     }
 
 }

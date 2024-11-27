@@ -12,7 +12,6 @@ describe('DashboardComponent', () => {
 
   beforeEach(() => {
     const spy = jasmine.createSpyObj('DashboardFacade', [
-      'getStoreById',
       'getProducts',
       'deleteProduct',
       'saveNewProduct'
@@ -34,9 +33,7 @@ describe('DashboardComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call getStoreById and getProducts on ngOnInit', () => {
-    component.ngOnInit();
-    expect(dashboardFacade.getStoreById).toHaveBeenCalled();
+  it('should call getProducts on ngOnInit', () => {
     expect(dashboardFacade.getProducts).toHaveBeenCalled();
   });
 

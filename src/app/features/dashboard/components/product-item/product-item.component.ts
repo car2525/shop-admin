@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { Product } from 'src/app/core/models/products';
 
@@ -7,6 +7,7 @@ import { Product } from 'src/app/core/models/products';
   templateUrl: './product-item.component.html',
   styleUrls: ['./product-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 export class ProductItemComponent {
 
@@ -25,7 +26,7 @@ export class ProductItemComponent {
     this.confirmationService.confirm({
       key: product.id,
       target: event.target as HTMLElement,
-      message: `Are you sure to delete product: ${product.title}?`,
+      message: `Are you sure to delete product?`,
       icon: 'pi pi-exclamation-triangle',
       closeOnEscape: true,
       accept: () => {

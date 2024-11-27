@@ -1,11 +1,13 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Product } from 'src/app/core/models/products';
 
 @Component({
   selector: 'sa-product-form',
   templateUrl: './product-form.component.html',
-  styleUrls: ['./product-form.component.scss']
+  styleUrls: ['./product-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 export class ProductFormComponent implements OnInit {
 
@@ -53,6 +55,7 @@ export class ProductFormComponent implements OnInit {
 
   onCancel(): void {
     this.cancelEvt.emit();
+    this.productForm.reset();
   }
 
   addReview(): void {

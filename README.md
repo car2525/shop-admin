@@ -1,6 +1,17 @@
 # ShopAdmin
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.16.
+![ShopAdmin Logo](assets/sweet.jpg)
+
+ShopAdmin is an administration platform for managing an online store, built with **Angular**. This project was generated using [Angular CLI version 16.2.16](https://github.com/angular/angular-cli) and is configured to support modern technologies like **NgRx** for state management, **PrimeNG** for UI components, and **Chart.js** for data visualization.
+
+## Main Technologies
+
+- **Angular 16.x**: A framework for building modern, reactive web applications.
+- **NgRx**: A library for reactive state management, used for managing global state and handling asynchronous operations.
+- **PrimeNG**: A UI component library for Angular, featuring a wide range of components like tables, forms, modals, and more.
+- **Chart.js**: A library for creating interactive charts and data visualizations.
+- **RxJS**: A library for reactive programming, used to manage asynchronous data streams.
+
 
 ## Development server
 

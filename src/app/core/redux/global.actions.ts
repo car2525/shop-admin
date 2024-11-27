@@ -1,11 +1,7 @@
 import { createAction, props } from "@ngrx/store";
+import { Store } from "../api/models/store";
 
 const prefixGlobalAction = '[GLOBAL]';
-
-export const persistStoreId = createAction(
-    `${prefixGlobalAction} persist store id`,
-    props<{ idStore: string }>()
-);
 
 export const handleError = createAction(
     `${prefixGlobalAction} handle app error`,
@@ -18,4 +14,14 @@ export const operationSuccess = createAction(
 );
 
 export const loadingStart = createAction(`${prefixGlobalAction} loading start`);
-export const loadingStop = createAction(`${prefixGlobalAction} loading stop`)
+export const loadingStop = createAction(`${prefixGlobalAction} loading stop`);
+
+export const persistStoreId = createAction(
+    `${prefixGlobalAction} persist store id`,
+    props<{ idStore: string }>()
+);
+export const getStoreById = createAction(`${prefixGlobalAction} get store by id`);
+export const persistStore = createAction(
+    `${prefixGlobalAction} persist Store result`,
+    props<{ store: Store }>()
+);

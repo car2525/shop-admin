@@ -4,21 +4,6 @@ import { DashboardState } from "./dashboard.reducers";
 export const selectDashboardState =
     createFeatureSelector<DashboardState>('dashboardState');
 
-export const selectStore = createSelector(
-    selectDashboardState,
-    (state) => state.store
-);
-
-export const selectStoreName = createSelector(
-    selectDashboardState,
-    (state) => state.store?.name ?? ''
-);
-
-export const selectStoreEmployees = createSelector(
-    selectDashboardState,
-    (state) => [''].concat(state.store?.employees ?? [])
-);
-
 export const selectProducts = createSelector(
     selectDashboardState,
     (state) => state.products

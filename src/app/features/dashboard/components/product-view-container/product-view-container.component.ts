@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { DataView } from 'primeng/dataview';
 import { DropdownChangeEvent } from 'primeng/dropdown';
@@ -7,7 +7,9 @@ import { Product } from 'src/app/core/models/products';
 @Component({
   selector: 'sa-product-view-container',
   templateUrl: './product-view-container.component.html',
-  styleUrls: ['./product-view-container.component.scss']
+  styleUrls: ['./product-view-container.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 export class ProductViewContainerComponent {
   @Input() storeName: string = '';

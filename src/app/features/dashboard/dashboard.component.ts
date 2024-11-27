@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DashboardFacade } from './services/dashboard.facade';
 import { Product } from 'src/app/core/models/products';
+import { GlobalFacade } from 'src/app/core/services/global.facade';
 
 @Component({
   selector: 'sa-dashboard',
@@ -9,14 +10,13 @@ import { Product } from 'src/app/core/models/products';
 })
 export class DashboardComponent implements OnInit {
 
-  storeName$ = this.dashboardFacade.storeName$;
+  storeName$ = this.globalFacade.storeName$;
+  storeEmployees$ = this.globalFacade.storeEmployees$;
   products$ = this.dashboardFacade.productsOrderedByTitle$;
-  storeEmployees$ = this.dashboardFacade.storeEmployees$;
 
-  constructor(private readonly dashboardFacade: DashboardFacade) {}
+  constructor(private readonly dashboardFacade: DashboardFacade, private readonly globalFacade: GlobalFacade) {}
 
   ngOnInit(): void {
-    this.dashboardFacade.getStoreById();
     this.dashboardFacade.getProducts();
   }
 

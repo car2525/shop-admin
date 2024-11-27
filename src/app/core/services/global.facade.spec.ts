@@ -1,7 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
-import { loadingStart, loadingStop, persistStoreId } from '../redux/global.actions';
+import { Store as StoreModel } from "src/app/core/api/models/models";
+import { getStoreById, loadingStart, loadingStop, persistStore, persistStoreId } from '../redux/global.actions';
 import { selectIdStore, selectIsLoading } from '../redux/global.selectors';
 import { GlobalFacade } from './global.facade';
 
@@ -12,7 +13,8 @@ describe('GlobalFacade', () => {
 
   const initialState = {
     idStore: '',
-    isLoading: false
+    isLoading: false,
+    store: null
   };
 
   beforeEach(() => {
@@ -43,7 +45,7 @@ describe('GlobalFacade', () => {
 
     facade.storeId$.subscribe((result) => {
       expect(result).toEqual(idStore);
-      done(); 
+      done();
     });
   });
 
@@ -68,4 +70,19 @@ describe('GlobalFacade', () => {
       done();
     });
   });
+
+  it('should dispatch getStoreById action', () => {
+    facade.getStoreById();
+
+    expect(store.dispatch).toHaveBeenCalledWith(getStoreById());
+  });
+
+  it('should dispatch persistStore action', () => {
+    const mockStore: StoreModel = { name: 'Test Store', category: 'Category', employees: ['Alice', 'Mario'] };
+
+    facade.persistStore(mockStore);
+
+    expect(store.dispatch).toHaveBeenCalledWith(persistStore({ store: mockStore }));
+  });
+
 });
