@@ -1,8 +1,8 @@
 # ShopAdmin
 
-![ShopAdmin Logo](assets/sweet.jpg)
+![ShopAdmin Logo](src/assets/sweet.jpg)
 
-ShopAdmin is an administration platform for managing an online store, built with **Angular**. This project was generated using [Angular CLI version 16.2.16](https://github.com/angular/angular-cli) and is configured to support modern technologies like **NgRx** for state management, **PrimeNG** for UI components, and **Chart.js** for data visualization.
+ShopAdmin is an administration platform for managing an online sweet store, built with **Angular**. This project was generated using [Angular CLI version 16.2.16](https://github.com/angular/angular-cli) and is configured to support modern technologies like **NgRx** for state management, **PrimeNG** for UI components, and **Chart.js** for data visualization.
 
 ## Main Technologies
 
